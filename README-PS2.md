@@ -43,7 +43,7 @@ menu. The Makefile's objects do not depend on its flags: `make clean` after chan
 | Video | `engine/platform/ps2/vid_ps2.c`: libgl's TV mode, NTSC 640 x 448 or PAL 640 x 512 |
 | Files | POSIX calls on the IOP file server (`host:`), `ps2/ps2_posix.c` from apps/descent3, on a picolibc with POSIX I/O; `/` is `host:`, the base directory `/hl` (`DIR`) |
 | Input | pad 0 as the engine's gamepad (`in_ps2.c`): buttons `K_A_BUTTON` ..., sticks the gamepad axes, the `playstation` preset of `extras.pk3` |
-| Memory | maxsdk's virtual memory (`mx_vm_config` in `sys_ps2.c`), paged to `host:halflife.swp`; built into VM (`MX_MEMORY=vm`: started by `mxload.elf`, as `make run` does), only maxsdk, libc and libgl in physical memory; `XASH_LOW_MEMORY=1`. In PCSX2 only on the EE interpreter (`PCSX2_EE=interp`) |
+| Memory | maxsdk's virtual memory (`mx_vm_config` in `sys_ps2.c`), paged to `host:halflife.swp`; built into VM (`MX_MEMORY=vm`: started by mxlink directly, or by `mxload.elf`, as `make run` does), only maxsdk, libc and libgl in physical memory; `XASH_LOW_MEMORY=1`. In PCSX2 only on the EE interpreter (`PCSX2_EE=interp`) |
 | Sound | the engine's mixer at 44100 Hz 16-bit stereo into a ring, sent to maxsdk's PCM stream (`mx/snd.h`, audsrv) by `s_ps2.c` as far as it has painted |
 | Network | none: the engine's POSIX code on sockets that fail (`ps2/include/ps2_net.h`), the local game on the loopback. `XASH_NO_NETWORK` no longer builds upstream |
 | C++ | C++17 without exceptions: libc++ and libc++abi from the LLVM tree, built by `make cxxlib`, as apps/descent3 |
@@ -55,6 +55,12 @@ In PCSX2 (EE interpreter, VM): the menu at 99 fps; `hldemo1` plays its opening a
 corridor right (3350 triangles, 24000 vertices, 1.6 MB of textures in GS memory, none
 evicted, 52 MB of virtual memory). The world is drawn by `ref_gl`'s `glBegin`/`glEnd`.
 
+On the PS2 (mxlink, PAL, 16-bit colour), `FRAMES=4500 ARGS="+map hldemo1"`: the level is
+connected about 30 s after the start, most of it writing to the swap file; in the world about
+20 fps, up to 34 (2500 triangles, 15000 vertices). No swapping once the level runs. Start it
+from a loader resident in low memory: one at 0x1E00000 is in the memory the VM hands out, and
+the program crashes when its memory fills up.
+
 Not done yet: the menu's labels are raw keys (`GameUI_NewGame`: Uplink has no
 `gameui_english.txt`) and its background grey, fog, the pad is not tried, the video modes
-of the other ports (1080i, beam racing, 24-bit colour). Not run on the PS2 yet.
+of the other ports (1080i, beam racing, 24-bit colour), the fast paths of the Quake ports.
