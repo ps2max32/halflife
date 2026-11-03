@@ -839,7 +839,7 @@ int WAI_PREFIX(getModulePath)(char* out, int capacity, int* dirname_length)
   return -1;
 }
 
-#elif defined(__SWITCH__) || defined(__vita__) || defined(__EMSCRIPTEN__) || defined(__ORBIS__)
+#elif defined(__SWITCH__) || defined(__vita__) || defined(__EMSCRIPTEN__) || defined(__ORBIS__) || defined(__PS2__)
 
 /* Not possible on this platform */
 

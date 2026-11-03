@@ -187,6 +187,12 @@ void DOS_Init( void );
 void DOS_Shutdown( void );
 #endif
 
+#if XASH_PS2 // platform/ps2
+void PS2_Init( void );
+void PS2_Shutdown( void );
+int PS2_GetArgv( int in_argc, char **in_argv, char ***out_argv );
+#endif
+
 #if XASH_LINUX
 void Linux_Init( void );
 void Linux_Shutdown( void );
@@ -220,6 +226,8 @@ static inline void Platform_Init( qboolean con_showalways )
 	PS4_Init( );
 #elif XASH_DOS
 	DOS_Init( );
+#elif XASH_PS2
+	PS2_Init( );
 #elif XASH_WIN32
 	Win32_Init( con_showalways );
 #elif XASH_LINUX
@@ -245,6 +253,8 @@ static inline void Platform_Shutdown( void )
 	PS4_Shutdown( );
 #elif XASH_DOS
 	DOS_Shutdown( );
+#elif XASH_PS2
+	PS2_Shutdown( );
 #elif XASH_WIN32
 	Win32_Shutdown( );
 #elif XASH_LINUX
@@ -397,7 +407,7 @@ qboolean Platform_MouseConnected( void );
 static inline qboolean Platform_MouseConnected( void ) { return true; }
 #endif
 
-#if XASH_SDL || XASH_DOS
+#if XASH_SDL || XASH_DOS || XASH_PS2 // platform/ps2/in_ps2.c: the pad
 void Platform_RunEvents( void );
 void Platform_MouseMove( float *x, float *y );
 #elif XASH_PS4 // the gamepad, keyboard and mouse are polled in Platform_RunEvents
@@ -429,7 +439,7 @@ int Platform_TranslateKeyLayout( int keynum );
 static inline int Platform_TranslateKeyLayout( int keynum ) { return keynum; }
 #endif
 
-#if XASH_SDL >= 2 || XASH_PS4
+#if XASH_SDL >= 2 || XASH_PS4 || XASH_PS2
 int Platform_JoyInit( void ); // returns number of connected gamepads, negative if error
 void Platform_JoyShutdown( void );
 void Platform_CalibrateGamepadGyro( void );

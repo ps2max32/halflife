@@ -1,0 +1,21 @@
+diff --git a/public/build.h b/public/build.h
+index 5f4d861e..8dc45520 100644
+--- a/public/build.h
++++ b/public/build.h
+@@ -77,6 +77,7 @@ Then you can use another oneliner to query all variables:
+ #undef XASH_OPENBSD
+ #undef XASH_POSIX
+ #undef XASH_PPC
++#undef XASH_PS2
+ #undef XASH_PS4
+ #undef XASH_RISCV
+ #undef XASH_RISCV_DOUBLEFP
+@@ -108,6 +109,8 @@ Then you can use another oneliner to query all variables:
+ 	// so PS4 must be checked first to get same result in C and C++
+ 	#if defined __ORBIS__
+ 		#define XASH_PS4 1
++	#elif defined __PS2__ // maxsdk (ps2max): POSIX calls on the IOP file server
++		#define XASH_PS2 1
+ 	#elif defined __linux__
+ 		#if defined __ANDROID__
+ 			#define XASH_ANDROID 1

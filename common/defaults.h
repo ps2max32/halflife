@@ -53,6 +53,11 @@ SETUP BACKENDS DEFINITIONS
 		#define XASH_VIDEO     VIDEO_PS4
 		#define XASH_INPUT     INPUT_PS4
 		#define XASH_SOUND     SOUND_PS4
+	#elif XASH_PS2 // maxsdk: libgl's screen, the pad, audsrv; see engine/platform/ps2
+		#define XASH_VIDEO     VIDEO_PS2
+		#define XASH_INPUT     INPUT_PS2
+		#define XASH_SOUND     SOUND_PS2
+		#define XASH_NO_TOUCH  1
 	#endif
 #endif // !XASH_DEDICATED
 
@@ -89,6 +94,8 @@ SETUP BACKENDS DEFINITIONS
 		#define XASH_TIMER TIMER_PSP
 	#elif XASH_PS4
 		#define XASH_TIMER TIMER_PS4
+	#elif XASH_PS2
+		#define XASH_TIMER TIMER_PS2
 	#else // !XASH_WIN32
 		#define XASH_TIMER TIMER_POSIX
 	#endif // !XASH_WIN32
@@ -159,6 +166,10 @@ Default build-depended cvar and constant values
 	#define DEFAULT_ALLOWCONSOLE 1
 #elif XASH_PS4
 	#define DEFAULT_ALLOWCONSOLE 1
+#elif XASH_PS2
+	#define DEFAULT_ALLOWCONSOLE 1
+	#define DEFAULT_MODE_WIDTH   640
+	#define DEFAULT_MODE_HEIGHT  448
 #elif XASH_ANDROID
 	#define DEFAULT_TOUCH_ENABLE "1"
 #elif XASH_SAILFISH

@@ -1170,6 +1170,10 @@ void GL_InitExtensions( void )
 
 	pglGetIntegerv( GL_MAX_TEXTURE_SIZE, &glConfig.max_2d_texture_size );
 	if( glConfig.max_2d_texture_size <= 0 ) glConfig.max_2d_texture_size = 256;
+#if XASH_PS2
+	// libgl says 128 but takes more; the menu's fonts and pictures need it
+	glConfig.max_2d_texture_size = 512;
+#endif
 
 #if !XASH_GL4ES // GL4ES doesn't provide glDebugMessage functions, even as stubs
 	// enable gldebug if allowed

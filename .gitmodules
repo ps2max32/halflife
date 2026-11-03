@@ -65,3 +65,6 @@
 	path = 3rdparty/opengnm-psbc/Vulkan-Headers
 	url = https://github.com/KhronosGroup/Vulkan-Headers
 	update = none
+[submodule "3rdparty/hlsdk-portable"]
+	path = 3rdparty/hlsdk-portable
+	url = https://github.com/FWGS/hlsdk-portable.git
