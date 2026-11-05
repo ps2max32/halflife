@@ -1,0 +1,19 @@
+diff --git a/generichash.cpp b/generichash.cpp
+index c3d7731..f1d16e5 100644
+--- a/generichash.cpp
++++ b/generichash.cpp
+@@ -46,12 +46,12 @@ uint32_t MurmurHash3_32( const void * key, size_t len, uint32_t seed, bool bCase
+ 	//----------
+ 	// body
+ 
+-	const uint32_t * blocks = (const uint32_t *)(data + nblocks*4);
++	const uint8_t * blocks = data + nblocks*4; /* not uint32_t *: the key need not be aligned */
+ 
+ 	for(ptrdiff_t i = -nblocks; i; i++)
+ 	{
+ 		uint32_t t1;
+-		memcpy(&t1, blocks+i, sizeof(uint32_t));
++		memcpy(&t1, blocks+i*4, sizeof(uint32_t));
+ 		uint32_t k1 = LittleDWord(t1);
+ 		k1 &= uSourceBitwiseAndMask;
+ 

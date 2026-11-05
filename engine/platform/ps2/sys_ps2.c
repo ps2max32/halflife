@@ -85,7 +85,7 @@ int PS2_GetArgv( int in_argc, char **in_argv, char ***out_argv )
 // swap file on the file server; started by mxload.elf (MX_MEMORY=vm)
 #if PS2_VM
 const struct mx_vm_config mx_vm_config = {
-	.swap = "host:halflife.swp",
+	.swap = "halflife.swp",
 };
 #endif
 

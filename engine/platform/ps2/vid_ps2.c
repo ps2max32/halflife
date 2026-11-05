@@ -85,7 +85,7 @@ void GL_SwapBuffers( void )
 	// a test run (FRAMES=n): its picture after n frames, then the end
 	if( PS2_FRAMES && ++frames >= PS2_FRAMES )
 	{
-		int r = mxgl_screenshot( "host:halflife.tga" );
+		int r = mxgl_screenshot( "halflife.tga" );
 		Con_Printf( "ps2: %d frames, picture host:halflife.tga: %d\n", frames, r );
 		exit( 0 );
 	}
