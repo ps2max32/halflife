@@ -39,7 +39,7 @@ menu. The Makefile's objects do not depend on its flags: `make clean` after chan
 | One program | `XASH_STATIC_LIBS`: the engine, and linked in `filesystem_stdio`, `ref_gl`, `menu` (mainui), `client` and `server` (hlsdk-portable; FreeVGUI in the client), each module one relocatable object whose symbols are local but its table `lib_<name>_exports`, as waf's `scripts/waifulib/xshlib.py` does. The tables are made from the modules' objects: built with `-fvisibility=hidden`, what is left is what is `EXPORT`, for the server all its entities (`LINK_ENTITY_TO_CLASS`) |
 | Submodules | upstream's commits; the PS2's changes (its platform in `build.h`) in `ps2/patches/<submodule>.patch`, applied by `ps2/patches.sh apply` before a build; after editing them `ps2/patches.sh export` |
 | Platform | `XASH_PS2`, a POSIX platform with its own backends, as the PS4 (`engine/platform/ps2`); `__PS2__` from the Makefile. `engine/platform/posix` but its library loader and crash handlers |
-| Renderer | `ref_gl` on `libs/libgl` (OpenGL 1.1 subset on the GS), the calls direct (`XASH_GL_STATIC`); textures up to 512 a side (libgl reports 128, but takes them: the menu's fonts and pictures need it); what libgl lacks is in `ps2/ps2_stubs.c`: behind extensions it does not report, so not called, and fog, which does nothing yet |
+| Renderer | `ref_gl` on `libs/libgl` (OpenGL 1.1 subset on the GS), the calls direct (`XASH_GL_STATIC`); textures up to 512 a side (libgl reports 128, but takes them: the menu's fonts and pictures need it); what libgl lacks is in `ps2/ps2_stubs.c`: behind extensions it does not report, so not called |
 | Video | `engine/platform/ps2/vid_ps2.c`: libgl's TV mode, NTSC 640 x 448 or PAL 640 x 512 |
 | Files | POSIX calls on the IOP file server (`host:`), `ps2/ps2_posix.c` from apps/descent3, on a picolibc with POSIX I/O; `/` is `host:`, the base directory `/hl` (`DIR`) |
 | Input | pad 0 as the engine's gamepad (`in_ps2.c`): buttons `K_A_BUTTON` ..., sticks the gamepad axes, the `playstation` preset of `extras.pk3` |
@@ -62,5 +62,5 @@ from a loader resident in low memory: one at 0x1E00000 is in the memory the VM h
 the program crashes when its memory fills up.
 
 Not done yet: the menu's labels are raw keys (`GameUI_NewGame`: Uplink has no
-`gameui_english.txt`) and its background grey, fog, the pad is not tried, the video modes
+`gameui_english.txt`) and its background grey, the pad is not tried, the video modes
 of the other ports (1080i, beam racing, 24-bit colour), the fast paths of the Quake ports.

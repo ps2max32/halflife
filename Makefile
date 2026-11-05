@@ -317,9 +317,9 @@ run: $(OUT)/halflife.elf $(OUT)/extras.pk3
 	cp $(HERE)/ps2/delta.lst $(OUT)/extras.pk3 $(RUNDIR)/hl/valve/
 ifeq ($(MX_MEMORY),vm)
 	cp $(OUT)/halflife.elf $(RUNDIR)/halflife.elf && echo "host:halflife.elf" > $(RUNDIR)/mxload.txt
-	PCSX2_EE=interp ~/.claude/skills/ps2-pcsx2-test/run.sh $(MX_LOADER) $(or $(TIMEOUT),3600)
+	PCSX2_EE=interp $(PCSX2_RUN) $(MX_LOADER) $(or $(TIMEOUT),3600)
 else
-	~/.claude/skills/ps2-pcsx2-test/run.sh $(OUT)/halflife.elf $(or $(TIMEOUT),600)
+	$(PCSX2_RUN) $(OUT)/halflife.elf $(or $(TIMEOUT),600)
 endif
 
 clean:

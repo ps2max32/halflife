@@ -3,8 +3,8 @@
    The OpenGL calls ref_gl links to (XASH_GL_STATIC) that libgl does not
    have: framebuffer objects, 1D/3D, multisample and compressed textures,
    debug output (all behind extensions libgl does not report, so not
-   called), and fog, texture coordinate generation, normals and the front
-   face (called; nothing yet: libgl has no fog).
+   called), and texture coordinate generation, normals and the front face
+   (called; nothing yet).
 
    The POSIX calls the engine links to that the PS2 has no use for: there is
    one program and one thread. */
@@ -17,9 +17,6 @@
 #define GL_NOTHING(name) \
   void name(void) {}
 
-GL_NOTHING(glFogf)
-GL_NOTHING(glFogfv)
-GL_NOTHING(glFogi)
 GL_NOTHING(glTexGeni)
 GL_NOTHING(glNormal3fv)
 GL_NOTHING(glFrontFace)
