@@ -103,7 +103,7 @@ MEMU_C   := $(call src,3rdparty/MultiEmulator/src/*.c)
 ENGINE_INC := -I$(X)/engine -I$(X)/engine/common -I$(X)/engine/common/imagelib -I$(X)/engine/server \
               -I$(X)/engine/client -I$(X)/engine/client/vgui -I$(X)/engine/common/soundlib \
               -I$(X)/engine/platform -I$(X)/filesystem $(SDKINC) -I$(ZLIB_SRC) \
-              -I$(X)/3rdparty/bzip2/bzip2 -I$(X)/3rdparty/MultiEmulator/include -I$(MXGL_INC) -I$(MAXSDK)/include
+              -I$(X)/3rdparty/bzip2/bzip2 -I$(X)/3rdparty/MultiEmulator/include -I$(MXGL_INC) -I$(MAXSDK)/ee/include
 
 FS_C     := $(call src,filesystem/*.c filesystem/*.cpp)
 REF_C    := $(call src,ref/gl/*.c ref/gl/gl2_shim/*.c ref/common/*.c)
@@ -199,11 +199,11 @@ $(OUT)/zlib/%.o: $(ZLIB_SRC)/%.c $(PICOLIBC_A)
 	$(CC) $(CFLAGS_C) -c $< -o $@
 $(OUT)/ps2/%.o: $(HERE)/ps2/%.c $(PICOLIBC_A)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS_C) -I$(MAXSDK)/include -c $< -o $@
+	$(CC) $(CFLAGS_C) -I$(MAXSDK)/ee/include -c $< -o $@
 
 # maxsdk's libc glue with its read, write and _exit renamed: ps2/ps2_posix.c
 # has them (files; the end marker), and passes the console's on
-$(OUT)/libc/glue.o: $(MAXSDK)/libc/glue.c $(PICOLIBC_A) $(HERE)/Makefile
+$(OUT)/libc/glue.o: $(MAXSDK)/ee/libc/glue.c $(PICOLIBC_A) $(HERE)/Makefile
 	@mkdir -p $(dir $@)
 	$(CC) $(filter-out -ffreestanding,$(CFLAGS)) -nostdlibinc $(SYSINC) -Dread=mx_glue_read \
 	  -Dwrite=mx_glue_write -D_exit=mx_glue_exit -c $< -o $@
@@ -276,7 +276,7 @@ $(MXGL_OBJS): $(PICOLIBC_A)
 
 $(PICOLIBC_A):
 	@mkdir -p $(LIBOUT)/picolibc
-	sed "s|@LLVM@|$(LLVM)|g" $(MAXSDK)/libc/cross-r5900.txt.in > $(LIBOUT)/picolibc/cross.txt
+	sed "s|@LLVM@|$(LLVM)|g" $(MAXSDK)/ee/libc/cross-r5900.txt.in > $(LIBOUT)/picolibc/cross.txt
 	meson setup --wipe $(LIBOUT)/picolibc/build-meson $(PICOLIBC_SRC) \
 	  --cross-file $(LIBOUT)/picolibc/cross.txt --prefix=$(PICOLIBC) -Dmultilib=false \
 	  -Dpicocrt=false -Dsemihost=false -Dtests=false -Dthread-local-storage=false \
