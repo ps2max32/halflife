@@ -32,7 +32,7 @@ all: $(OUT)/halflife.elf
 MXGL     ?= $(PS2MAX)/libs/libgl
 include $(MXGL)/mk/mxgl.mk
 include $(MAXSDK)/mk/maxsdk.mk
-# MX_MEMORY=vm (started by mxload.elf): the game in VM, libgl in core
+# MX_MEMORY=vm (started by mxlink): the game in VM, libgl in core
 MX_CORE_OBJS = $(MXGL_OBJS)
 
 LLVM_SRC ?= $(PS2MAX_LLVM_SRC)
