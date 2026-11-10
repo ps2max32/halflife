@@ -259,7 +259,7 @@ $(shell mkdir -p $(OUT)/gen; printf '#define PS2_FRAMES %s\n#define PS2_ARGS "%s
 
 MOD_OBJS := $(patsubst %,$(OUT)/mod/%.o,$(MODULES))
 $(OUT)/halflife.elf: $(ENGINE_OBJS) $(MOD_OBJS) $(MXGL_OBJS) $(HLSL_OBJS) $(MX_LIB) $(MX_CRT0) $(MX_LD) $(LIBC_LIBS)
-	$(call link,$@,--error-limit=0 --defsym=__stack_size=0x100000 $(MX_CRT0) $(ENGINE_OBJS) $(MOD_OBJS) \
+	$(call link,$@,--error-limit=0 --defsym=__mx_stack_size=0x100000 $(MX_CRT0) $(ENGINE_OBJS) $(MOD_OBJS) \
 	  $(MXGL_OBJS) $(HLSL_OBJS) --start-group $(LIBC_LIBS) --end-group)
 
 # the submodules the port uses, not all of Xash3D's
