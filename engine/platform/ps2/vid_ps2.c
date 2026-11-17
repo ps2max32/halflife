@@ -146,7 +146,7 @@ qboolean VID_SetMode( void )
 	SetBits( gl_vsync.flags, FCVAR_CHANGED );
 
 	Con_Printf( "Video: " S_GREEN "PS2 libgl" S_DEFAULT ", %dx%d (%s)\n", w, h,
-		mxgl_mode( ) == MXGL_PAL ? "PAL" : "NTSC" );
+		mxgl_mode_name( ) );
 	return true;
 }
 
